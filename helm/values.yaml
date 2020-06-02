@@ -1,0 +1,14 @@
+client:
+  service:
+    type: NodePort
+image:
+  repository: docker.io/aparker
+  tag: latest
+  pullPolicy: IfNotPresent
+serverOptions:
+  mysqlHost: todo-mysql-server
+  nodePort: 30005
+mysql-server:
+  mysqlUser: todouser
+  mysqlPassword: todopw
+  mysqlDatabase: todos 
