@@ -10,11 +10,13 @@ TBD
 
 First, configure your cluster.
 
-```kubectl create -f https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/master/deploy/crds/opentelemetry.io_opentelemetrycollectors_crd.yaml
+```
+kubectl create -f https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/master/deploy/crds/opentelemetry.io_opentelemetrycollectors_crd.yaml
 kubectl create -f https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/master/deploy/service_account.yaml
 kubectl create -f https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/master/deploy/role.yaml
 kubectl create -f https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/master/deploy/role_binding.yaml
-kubectl create -f https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/master/deploy/operator.yaml```
+kubectl create -f https://raw.githubusercontent.com/open-telemetry/opentelemetry-operator/master/deploy/operator.yaml
+```
 
 A collector instance will be created as part of the helm install.
 
@@ -26,8 +28,10 @@ Add the auto-instrumentation jar to the Docker container and the OTLP exporter
 
 Modify your Dockerfile with the new startup info:
 
-```export OTEL_RESOURCE_ATTRIBUTES=service.name=shopping
+```
+export OTEL_RESOURCE_ATTRIBUTES=service.name=shopping
 java -javaagent:path/to/opentelemetry-auto-0.3.0.jar \
      -Dota.exporter.jar=path/to/opentelemetry-auto-exporters-otlp-0.3.0.jar \
      -Dota.exporter.otlp.endpoint=localhost:55678 \
-     -jar myapp.jar```
+     -jar myapp.jar
+```
