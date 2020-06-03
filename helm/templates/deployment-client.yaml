@@ -24,6 +24,8 @@ spec:
           env:
           - name: SERVER
             value: todo-server
+          - name: REDEPLOYED_AT
+            value: "{{now}}"
           ports:
           - containerPort: 8080
           volumeMounts:

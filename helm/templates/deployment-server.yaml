@@ -22,12 +22,14 @@ spec:
           env:
           - name: MYSQL_HOST
             value: "{{ .Values.serverOptions.mysqlHost }}"
+          - name: REDEPLOYED_AT
+            value: "{{now}}"
           resources:
             requests:
               cpu: 200m
               memory: 180Mi
             limits:
               cpu: 300m
-              memory: 300Mi
+              memory: 500Mi
 
 
