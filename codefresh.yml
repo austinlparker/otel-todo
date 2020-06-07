@@ -49,6 +49,10 @@ steps:
     image: 'codefresh/cfstep-helm:3.0.3'
     title: Deploying Helm chart
     stage: deploy
+    when:
+      branch:
+        only:
+          - master
     environment:
       - CHART_REF=helm
       - RELEASE_NAME=otel-todo-prod
