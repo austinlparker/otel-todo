@@ -7,11 +7,11 @@ import { ZoneContextManager } from '@opentelemetry/context-zone';
 import { CollectorExporter } from '@opentelemetry/exporter-collector';
 import { HttpTraceContext  } from '@opentelemetry/core';
 
-/* eslint-disable no-unused-vars */
+/* eslint-disable no-undef */
 const collectorUrl = config.VUE_APP_ENV_Collector || 'http://localhost:30011/v1/trace'
 const serverBaseUrl = config.VUE_APP_ENV_ServerBase || 'localhost:30005'
 const baseLocation = window.location.hostname || 'localhost'
-/* eslint-enable no-unused-vars */
+/* eslint-enable no-undef */
 
 const exporter = new CollectorExporter({
   serviceName: 'todo-client',
