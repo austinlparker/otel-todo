@@ -7,9 +7,11 @@ import { ZoneContextManager } from '@opentelemetry/context-zone';
 import { CollectorExporter } from '@opentelemetry/exporter-collector';
 import { HttpTraceContext  } from '@opentelemetry/core';
 
+/* eslint-disable no-unused-vars */
 const collectorUrl = config.VUE_APP_ENV_Collector || 'http://localhost:30011/v1/trace'
 const serverBaseUrl = config.VUE_APP_ENV_ServerBase || 'localhost:30005'
 const baseLocation = window.location.hostname || 'localhost'
+/* eslint-enable no-unused-vars */
 
 const exporter = new CollectorExporter({
   serviceName: 'todo-client',
@@ -21,7 +23,7 @@ const providerWithZone = new WebTracerProvider({
     new DocumentLoad(),
     new UserInteractionPlugin(),
     new XMLHttpRequestPlugin({
-      ignoreUrls: [new RegExp(`/${baseLocation}:8090\/sockjs-node/`)],
+      ignoreUrls: [new RegExp(`/${baseLocation}:8090/sockjs-node/`)],
       propagateTraceHeaderCorsUrls: [
         new RegExp(`/${serverBaseUrl}/`),
       ],

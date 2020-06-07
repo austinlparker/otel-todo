@@ -22,7 +22,7 @@ steps:
     on_success:
       metadata:
         set:
-          - '${{MyAppDockerImage.imageId}}':
+          - '${{build_server_image.imageId}}':
             - CF_QUALITY: true
             - Performance: true
             - Latency: ".89" 
@@ -39,7 +39,7 @@ steps:
     on_success:
       metadata:
         set:
-          - '${{MyAppDockerImage.imageId}}':
+          - '${{build_client_image.imageId}}':
             - CF_QUALITY: true
             - Performance: true
             - Latency: ".89" 
