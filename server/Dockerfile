@@ -13,7 +13,7 @@ ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/release
 ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v0.3.0/opentelemetry-auto-exporters-otlp-0.3.0.jar /app/otel-otlp.jar
 ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v0.3.0/opentelemetry-auto-exporters-logging-0.3.0.jar /app/otel-log.jar
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
-ENV OTEL_RESOURCE_ATTRIBUTES todo-server
+ENV OTEL_RESOURCE_ATTRIBUTES service.name=todo-server
 
 ENTRYPOINT ["java",\
            "-XX:+UnlockExperimentalVMOptions",\

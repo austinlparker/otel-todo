@@ -6,11 +6,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.Ordered;
+import org.springframework.web.context.annotation.RequestScope;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 import java.util.Collections;
-import java.util.stream.Stream;
 
 @SpringBootApplication
 public class TodoApplication {
@@ -22,11 +22,6 @@ public class TodoApplication {
 	@Bean  
     ApplicationRunner init(TodoRepository repository) {  
         return args -> {  
-            Stream.of("Buy milk", "Eat pizza", "Write tutorial", "Study Vue.js", "Go kayaking").forEach(name -> {  
-                    Todo todo = new Todo();  
-                    todo.setTitle(name);  
-                    repository.save(todo);  
-            });  
             repository.findAll().forEach(System.out::println);  
         };  
     }  

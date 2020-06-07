@@ -21,7 +21,7 @@ data:
     exporters:
       logging:
       lightstep:
-        access_token: 
+        access_token: {{ .Values.lightstepKey }}
     service:
       extensions: [health_check, zpages]
       pipelines:

@@ -1,29 +1,31 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todo-server
+  name: {{ .Values.server.name }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   selector:
     matchLabels:
-      app: todo-server
+      app: {{ .Values.server.name }}
   template:
     metadata:
       labels:
-        app: todo-server
+        app: {{ .Values.server.name }}
     spec:
       containers:
-        - name: todo-server
-          image: "{{ .Values.image.repository }}/todo-server:{{ .Values.image.tag }}"
+        - name: {{ .Values.server.name }}
+          image: "{{ .Values.image.repository }}/{{ .Values.server.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
           - containerPort: 9000
           env:
           - name: MYSQL_HOST
-            value: "{{ .Values.serverOptions.mysqlHost }}"
+            value: "{{ .Values.server.mysqlHost }}"
           - name: REDEPLOYED_AT
             value: "{{now}}"
+          - name: OTEL_RESOURCE_ATTRIBUTES
+            value: "service.name={{ .Values.server.name }}"
           resources:
             requests:
               cpu: 200m

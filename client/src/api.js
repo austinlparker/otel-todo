@@ -21,5 +21,9 @@ export default {
   // (U)pdate  
   updateForId: (id, text, completed) => instance.put('todos/'+id, {title: text, completed: completed}),  
   // (D)elete  
-  removeForId: (id) => instance.delete('todos/'+id)  
+  removeForId: (id) => instance.delete('todos/'+id),
+
+  getFact: () => instance.get('fact', { transformResponse: [function (data) {
+    return JSON.parse(data);
+  }]})
 }

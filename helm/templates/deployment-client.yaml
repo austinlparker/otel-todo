@@ -1,35 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: todo-client
+  name: {{ .Values.client.name }}
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 spec:
   selector:
     matchLabels:
-      app: todo-client
+      app: {{ .Values.client.name }}
   template:
     metadata:
       labels:
-        app: todo-client
+        app: {{ .Values.client.name }}
     spec:
       volumes:
-        - name: todo-client-config
+        - name: {{ .Values.client.name }}-config
           configMap:
-            name: todo-client
+            name: {{ .Values.client.name }}
       containers:
-        - name: todo-client
-          image: "{{ .Values.image.repository }}/todo-client:{{ .Values.image.tag }}"
+        - name: {{ .Values.client.name }}
+          image: "{{ .Values.image.repository }}/{{ .Values.client.name }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           env:
-          - name: SERVER
-            value: todo-server
           - name: REDEPLOYED_AT
             value: "{{now}}"
           ports:
           - containerPort: 8080
           volumeMounts:
-            - name: todo-client-config
+            - name: {{ .Values.client.name }}-config
               mountPath: /usr/share/nginx/html/config.js
               subPath: config.js
           resources:

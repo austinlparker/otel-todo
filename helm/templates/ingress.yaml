@@ -1,0 +1,24 @@
+{{ if eq .Values.ingress.enabled true }}
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: todo-ingress
+  annotations:
+    kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.staticIpResourceName }}
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /server
+        backend:
+          serviceName: {{ .Values.server.name }}
+          servicePort: {{ .Values.server.targetPort }}
+      - path: /v1/trace
+        backend:
+          serviceName: otel-collector
+          servicePort: 55680
+      - path: /*
+        backend:
+          serviceName: {{ .Values.client.name }}
+          servicePort: {{ .Values.client.targetPort }}
+{{ end }}

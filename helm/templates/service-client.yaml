@@ -14,4 +14,8 @@ spec:
   ports:
   - name: http
     port: 80
-    nodePort: 30004
+    {{ if eq .Values.ingress.enabled}}
+    targetPort: {{ .Values.client.targetPort }}
+    {{ else }}
+    nodePort: {{ .Values.client.targetPort }}
+    {{ end }}

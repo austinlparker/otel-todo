@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1 class="title">Todos</h1>
+    <h2>... and Cat Facts</h2>
     <h1 class="email">{{userEmail}}</h1>
     <section class="todoapp">
       <div v-if="loading">
@@ -53,6 +54,7 @@
     <div v-if="error" class="error" @click="handleErrorClick">
       ERROR: {{this.error}}
     </div>
+    <p>Cat Fact! {{ fact }}</p>
   </div>
 </template>
 
@@ -87,6 +89,7 @@
     data: function() {
       return {
         todos: [],
+        fact: '',
         newTodo: '',
         editedTodo: null,
         visibility: 'all',
@@ -105,6 +108,9 @@
           this.$log.debug(error)  
           this.error = "Failed to load todos"  
       })  
+        .then(() => {
+          api.getFact().then(response => {this.fact = response.data.text})
+        })
         .finally(() => this.loading = false)  
     },
 

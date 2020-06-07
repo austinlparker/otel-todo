@@ -1,14 +1,23 @@
-client:
-  service:
-    type: NodePort
+ingress:
+  enabled: true
+  staticIpResourceName: oteltodo-ip
+  staticIp: 34.120.230.249
 image:
   repository: docker.io/aparker
   tag: latest
   pullPolicy: IfNotPresent
-serverOptions:
-  mysqlHost: todo-mysql-server
-  nodePort: 30005
+client:
+  name: todo-client
+  serviceType: ClusterIP
+  targetPort: 8080
+server:
+  name: todo-server
+  serviceType: ClusterIP
+  targetPort: 9000
+  mySqlHost: todo-mysql-server
 mysql-server:
   mysqlUser: todouser
   mysqlPassword: todopw
-  mysqlDatabase: todos 
+  mysqlDatabase: todos
+# if running locally, set this value here or on the helm command line
+lightstepKey: 

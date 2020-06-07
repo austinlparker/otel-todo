@@ -8,10 +8,15 @@ metadata:
     app.kubernetes.io/managed-by: "{{ .Release.Service  }}"
     app.kubernetes.io/instance: "{{ .Release.Name }}"   
 spec:
-  type: NodePort
+  type: {{ .Values.server.serviceType }}
   selector:
     app: todo-server
   ports:
   - name: todo-server
     port: 9000
-    nodePort: {{ .Values.serverOptions.nodePort }}
+    {{ if eq .Values.ingress.enabled}}
+    targetPort: {{ .Values.server.targetPort }}
+    {{ else }}
+    nodePort: {{ .Values.server.targetPort }}
+    {{ end }}
+
