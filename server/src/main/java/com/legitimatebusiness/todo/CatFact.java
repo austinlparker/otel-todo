@@ -6,10 +6,11 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 public class CatFact {
   private String text;
 
-  // delete this ctor for error case
+  /* an error occurs while this is commented out!
   public CatFact() {
     super();
   }
+  */
 
   public CatFact(String text) {
     this.text = text;
