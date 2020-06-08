@@ -144,6 +144,9 @@ data:
       zpages:
         endpoint: "0.0.0.0:55679"
     exporters:
+      prometheus:
+        endpoint: "0.0.0.0:8889"
+        namespace: "collector"
       logging:
       lightstep:
         access_token: {{ .Values.lightstepKey }}
@@ -154,6 +157,9 @@ data:
           receivers: [otlp]
           processors: [batch, queued_retry]
           exporters: [logging, lightstep]
+        metrics:
+          receivers: [otlp]
+          exporters: [logging, prometheus]
 ---
 apiVersion: v1
 kind: Service
@@ -162,6 +168,10 @@ metadata:
   labels:
     app: opentelemetry
     component: otel-collector
+  annotations: 
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /metrics
+    prometheus.io/port: "8889"
 spec:
   type: {{ .Values.collector.serviceType }}
   {{ if eq .Values.collector.serviceType "LoadBalancer" }}
@@ -173,7 +183,7 @@ spec:
     protocol: TCP
     targetPort: 55680
   - name: metrics # Default endpoint for querying metrics.
-    port: 8888
+    port: 8889
   - name: healthz
     port: 55679
   selector:
@@ -186,10 +196,6 @@ metadata:
   labels:
     app: opentelemetry
     component: otel-collector
-  annotations: 
-    prometheus.io/scrape: "true"
-    prometheus.io/path: /
-    prometheus.io/port: "8888"
 spec:
   selector:
     matchLabels:
@@ -212,6 +218,9 @@ spec:
           - "--mem-ballast-size-mib=683"
         image: otel/opentelemetry-collector-contrib-dev:latest
         name: otel-collector
+        env:
+          - name: REDEPLOYED_AT
+            value: "{{now}}"
         resources:
           limits:
             cpu: 1
@@ -222,7 +231,7 @@ spec:
         ports:
         - containerPort: 55679 # Default endpoint for ZPages.
         - containerPort: 55680 # Default endpoint for OpenTelemetry receiver.
-        - containerPort: 8888  # Default endpoint for querying metrics.
+        - containerPort: 8889  # Default endpoint for querying metrics.
         volumeMounts:
         - name: otel-collector-config-vol
           mountPath: /conf
@@ -249,8 +258,10 @@ There's a lot going on here, so let's talk about it in parts. The Collector depl
 
 The collector functions by exposing _receivers_, which are endpoints that can collect telemetry data in a variety of formats. That telemetry can be transformed by _processors_ -- we use these to batch and queue exports in this case, but other options exist. The collector itself has several _extensions_ that provide useful functionality, such as health checks or zPages to collect diagnostic information. Finally, the collector has _exporters_ which transmit telemetry to analysis and storage service(s).  
 
-In this case, we're registring an OTLP (OpenTeLemetry Protocol) receiver which will listen for data from our front and backend services. That data will be processed in batches, before being exported to Lightstep. We also set up a logging exporter that will print information to `stdout` when traces are received, allowing us to easily spot check that we're receiving telemetry from our services.
+In this case, we're registring an OTLP (OpenTeLemetry Protocol) receiver which will listen for data from our front and backend services. That data will be processed in batches, before being exported to Lightstep. We also set up a logging exporter that will print information to `stdout` when traces are received, allowing us to easily spot check that we're receiving telemetry from our services. We're also setting up an exporter for metrics, which will export metrics about our collector to Prometheus (as well as any metrics we might choose to export from our application).
 
 ## Run The Application
 
-At this point, you're ready to run your application
+At this point, you're ready to run! If you're deploying to a managed Kubernetes cluster, like GKE, then make sure you've filled out the `values.yaml` file appropriately with static IP addresses for the client, server, and collector and set the `serviceType` to `LoadBalancer`. If deploying locally, you'll want to use `NodePort` for the service type. You'll also need to set the `lightstepKey` value with the project access token from your Lightstep project.
+
+You can run `helm install <name> ./helm` to deploy everything to Kubernetes. 
