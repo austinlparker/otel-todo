@@ -14,4 +14,8 @@ spec:
   ports:
   - name: http
     port: 80
+    {{ if eq .Values.client.serviceType "LoadBalancer" }}
+    targetPort: {{ .Values.client.targetPort }}
+    {{ else }}
     nodePort: {{ .Values.client.targetPort }}
+    {{ end }}

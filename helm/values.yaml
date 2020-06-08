@@ -8,11 +8,11 @@ image:
   pullPolicy: IfNotPresent
 client:
   name: todo-client
-  serviceType: NodePort
+  serviceType: LoadBalancer
   targetPort: 8080
 server:
   name: todo-server
-  serviceType: NodePort
+  serviceType: LoadBalancer
   targetPort: 9000
   mySqlHost: todo-mysql-server
 mysql-server:
