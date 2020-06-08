@@ -38,6 +38,7 @@ metadata:
     app: opentelemetry
     component: otel-collector
 spec:
+  type: LoadBalancer
   ports:
   - name: otlp # Default endpoint for OpenTelemetry receiver.
     port: 55680
@@ -47,23 +48,6 @@ spec:
     port: 8888
   - name: healthz
     port: 55679
-  selector:
-    component: otel-collector
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: otel-collector-np
-  labels:
-    app: opentelemetry
-    component: otel-collector
-spec:
-  type: NodePort
-  ports:
-  - name: otlp # Default endpoint for OpenTelemetry receiver.
-    port: 55680
-    protocol: TCP
-    nodePort: 30011
   selector:
     component: otel-collector
 ---

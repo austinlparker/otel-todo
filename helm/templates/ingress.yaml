@@ -5,17 +5,19 @@ metadata:
   name: todo-ingress
   annotations:
     kubernetes.io/ingress.global-static-ip-name: {{ .Values.ingress.staticIpResourceName }}
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   rules:
   - http:
       paths:
-      - path: /server
+      - path: /server(/|$)(.*)
         backend:
           serviceName: {{ .Values.server.name }}
           servicePort: {{ .Values.server.targetPort }}
       - path: /v1/trace
         backend:
-          serviceName: otel-collector-np
+          serviceName: otel-collector
           servicePort: 55680
       - path: /*
         backend:
