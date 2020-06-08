@@ -245,5 +245,12 @@ spec:
           name: otel-collector-config-vol
 ```
 
-There's a lot going on here, so let's talk about it in parts. The Collector deployment has three main components - a `ConfigMap` to store the collector's configuration, a `Deployment` to configure the pod, and a `Service` to expose it to the world. You can learn more about the configuration at the [GitHub repository](https://github.com/open-telemetry/opentelemetry-collector) for the collector, but we're
+There's a lot going on here, so let's talk about it in parts. The Collector deployment has three main components - a `ConfigMap` to store the collector's configuration, a `Deployment` to configure the pod, and a `Service` to expose it to the world. You can learn more about the configuration at the [GitHub repository](https://github.com/open-telemetry/opentelemetry-collector) for the collector, so we're not going to dwell on it much other than to discuss the important parts of the `ConfigMap`.
+
+The collector functions by exposing _receivers_, which are endpoints that can collect telemetry data in a variety of formats. That telemetry can be transformed by _processors_ -- we use these to batch and queue exports in this case, but other options exist. The collector itself has several _extensions_ that provide useful functionality, such as health checks or zPages to collect diagnostic information. Finally, the collector has _exporters_ which transmit telemetry to analysis and storage service(s).  
+
+In this case, we're registring an OTLP (OpenTeLemetry Protocol) receiver which will listen for data from our front and backend services. That data will be processed in batches, before being exported to Lightstep. We also set up a logging exporter that will print information to `stdout` when traces are received, allowing us to easily spot check that we're receiving telemetry from our services.
+
 ## Run The Application
+
+At this point, you're ready to run your application

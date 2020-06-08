@@ -31,7 +31,10 @@ data:
         traces:
           receivers: [otlp]
           processors: [batch, queued_retry]
-          exporters: [logging, lightstep, prometheus]
+          exporters: [logging, lightstep]
+        metrics:
+          receivers: [otlp]
+          exporters: [logging, prometheus]
 ---
 apiVersion: v1
 kind: Service
