@@ -8,13 +8,13 @@ metadata:
     app.kubernetes.io/managed-by: "{{ .Release.Service  }}"
     app.kubernetes.io/instance: "{{ .Release.Name }}"   
 spec:
-  type: {{ .Values.client.service.type }}
+  type: {{ .Values.client.serviceType }}
   selector:
     app: todo-client
   ports:
   - name: http
     port: 80
-    {{ if eq .Values.ingress.enabled}}
+    {{ if eq .Values.ingress.enabled true }}
     targetPort: {{ .Values.client.targetPort }}
     {{ else }}
     nodePort: {{ .Values.client.targetPort }}

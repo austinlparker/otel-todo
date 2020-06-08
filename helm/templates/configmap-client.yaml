@@ -5,7 +5,7 @@ metadata:
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 data:
-  {{ if eq .Values.ingress.enabled }}
+  {{ if eq .Values.ingress.enabled true }}
   config.js: |
     var config = (() => {
       return {
