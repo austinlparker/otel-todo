@@ -14,9 +14,5 @@ spec:
   ports:
   - name: todo-server
     port: 9000
-    {{ if eq .Values.ingress.enabled true }}
-    targetPort: {{ .Values.server.targetPort }}
-    {{ else }}
     nodePort: {{ .Values.server.targetPort }}
-    {{ end }}
 
