@@ -46,7 +46,7 @@ steps:
             - Test_Coverage: "83%"
             - JIRA: "https://codefresh-io.atlassian.net/browse/MKTG-12"
   deploy_chart:
-    image: 'codefresh/cfstep-helm:3.0.3'
+    image: 'codefresh/cfstep-helm:3.1.1'
     title: Deploying Helm chart
     stage: deploy
     when:
