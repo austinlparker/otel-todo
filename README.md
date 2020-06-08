@@ -264,4 +264,4 @@ In this case, we're registring an OTLP (OpenTeLemetry Protocol) receiver which w
 
 At this point, you're ready to run! If you're deploying to a managed Kubernetes cluster, like GKE, then make sure you've filled out the `values.yaml` file appropriately with static IP addresses for the client, server, and collector and set the `serviceType` to `LoadBalancer`. If deploying locally, you'll want to use `NodePort` for the service type. You'll also need to set the `lightstepKey` value with the project access token from your Lightstep project.
 
-You can run `helm install <name> ./helm` to deploy everything to Kubernetes. 
+You can run `helm install <name> ./helm` to deploy everything to Kubernetes locally. If you're using Codefresh, make sure you update the `codefresh.yml` file 
