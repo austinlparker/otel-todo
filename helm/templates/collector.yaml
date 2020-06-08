@@ -38,7 +38,10 @@ metadata:
     app: opentelemetry
     component: otel-collector
 spec:
-  type: LoadBalancer
+  type: {{ .Values.collector.serviceType }}
+  {{ if eq .Values.collector.serviceType "LoadBalancer" }}
+  loadBalancerIP: {{ .Values.collector.ip }}
+  {{ end }}
   ports:
   - name: otlp # Default endpoint for OpenTelemetry receiver.
     port: 55680

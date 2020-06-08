@@ -1,7 +1,3 @@
-ingress:
-  enabled: true
-  staticIpResourceName: oteltodo-ip
-  staticIp: 34.120.230.249
 image:
   repository: docker.io/aparker
   tag: latest
@@ -10,10 +6,15 @@ client:
   name: todo-client
   serviceType: LoadBalancer
   targetPort: 80
+  ip: 35.223.88.219
 server:
   name: todo-server
   serviceType: LoadBalancer
   targetPort: 9000
+  ip: 104.198.253.217
+collector:
+  serviceType: LoadBalancer
+  ip: 34.72.217.76
 mysql-server:
   mysqlUser: todouser
   mysqlPassword: todopw

@@ -5,13 +5,13 @@ metadata:
   labels:
     chart: "{{ .Chart.Name }}-{{ .Chart.Version | replace "+" "_" }}"
 data:
-  {{ if eq .Values.ingress.enabled true }}
+  {{ if eq .Values.client.serviceType "LoadBalancer" }}
   config.js: |
     var config = (() => {
       return {
-        "VUE_APP_ENV_Server": "http://{{ .Values.ingress.staticIp }}/server",
-        "VUE_APP_ENV_Collector": "http://{{ .Values.ingress.staticIp }}/v1/trace",
-        "VUE_APP_ENV_ServerBase": "{{ .Values.ingress.staticIp }}"
+        "VUE_APP_ENV_Server": "http://{{ .Values.server.ip }}:{{ .Values.server.targetPort }}/",
+        "VUE_APP_ENV_Collector": "http://{{ .Values.collector.ip }}:55680/v1/trace",
+        "VUE_APP_ENV_ServerBase": "{{ .Values.server.ip }}:{{ .Values.server.targetPort }}"
       };
     })();
   {{ else }}

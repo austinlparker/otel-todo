@@ -19,4 +19,7 @@ spec:
     {{ else }}
     nodePort: {{ .Values.server.targetPort }}
     {{ end }}
+  {{ if eq .Values.server.serviceType "LoadBalancer" }}
+  loadBalancerIP: {{ .Values.server.ip }}
+  {{ end }}
 
