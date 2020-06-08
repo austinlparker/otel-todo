@@ -61,6 +61,10 @@ metadata:
   labels:
     app: opentelemetry
     component: otel-collector
+  annotations: 
+    prometheus.io/scrape: "true"
+    prometheus.io/path: /
+    prometheus.io/port: "8888"
 spec:
   selector:
     matchLabels:
