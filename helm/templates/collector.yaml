@@ -45,7 +45,7 @@ metadata:
     component: otel-collector
   annotations: 
     prometheus.io/scrape: "true"
-    prometheus.io/path: /
+    prometheus.io/path: /metrics
     prometheus.io/port: "8889"
 spec:
   type: {{ .Values.collector.serviceType }}
@@ -93,6 +93,9 @@ spec:
           - "--mem-ballast-size-mib=683"
         image: otel/opentelemetry-collector-contrib-dev:latest
         name: otel-collector
+        env:
+          - name: REDEPLOYED_AT
+            value: "{{now}}"
         resources:
           limits:
             cpu: 1
