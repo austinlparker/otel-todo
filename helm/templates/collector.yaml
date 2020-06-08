@@ -19,6 +19,9 @@ data:
       zpages:
         endpoint: "0.0.0.0:55679"
     exporters:
+      prometheus:
+        endpoint: "0.0.0.0:8888"
+        namespace: "collector"
       logging:
       lightstep:
         access_token: {{ .Values.lightstepKey }}
@@ -28,7 +31,7 @@ data:
         traces:
           receivers: [otlp]
           processors: [batch, queued_retry]
-          exporters: [logging, lightstep]
+          exporters: [logging, lightstep, prometheus]
 ---
 apiVersion: v1
 kind: Service
