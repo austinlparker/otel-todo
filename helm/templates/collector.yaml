@@ -20,7 +20,7 @@ data:
         endpoint: "0.0.0.0:55679"
     exporters:
       prometheus:
-        endpoint: "0.0.0.0:8888"
+        endpoint: "0.0.0.0:8889"
         namespace: "collector"
       logging:
       lightstep:
@@ -46,7 +46,7 @@ metadata:
   annotations: 
     prometheus.io/scrape: "true"
     prometheus.io/path: /
-    prometheus.io/port: "8888"
+    prometheus.io/port: "8889"
 spec:
   type: {{ .Values.collector.serviceType }}
   {{ if eq .Values.collector.serviceType "LoadBalancer" }}
@@ -58,7 +58,7 @@ spec:
     protocol: TCP
     targetPort: 55680
   - name: metrics # Default endpoint for querying metrics.
-    port: 8888
+    port: 8889
   - name: healthz
     port: 55679
   selector:
@@ -103,7 +103,7 @@ spec:
         ports:
         - containerPort: 55679 # Default endpoint for ZPages.
         - containerPort: 55680 # Default endpoint for OpenTelemetry receiver.
-        - containerPort: 8888  # Default endpoint for querying metrics.
+        - containerPort: 8889  # Default endpoint for querying metrics.
         volumeMounts:
         - name: otel-collector-config-vol
           mountPath: /conf
