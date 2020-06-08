@@ -21,7 +21,7 @@ spec:
           - containerPort: 9000
           env:
           - name: MYSQL_HOST
-            value: "{{ .Values.server.mysqlHost }}"
+            value: "{{ .Release.Name }}-mysql-server"
           - name: REDEPLOYED_AT
             value: "{{now}}"
           - name: OTEL_RESOURCE_ATTRIBUTES
