@@ -21,3 +21,9 @@ mysql-server:
   mysqlDatabase: todos
 # if running locally, set this value here or on the helm command line
 lightstepKey: 
+prometheus-server:
+  extraScrapeConfigs:
+    - job_name: 'collector'
+      scrape_interval: 10s
+      static_configs:
+        - targets: ['otel-collector:8888']
