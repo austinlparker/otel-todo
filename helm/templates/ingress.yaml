@@ -15,8 +15,8 @@ spec:
           servicePort: {{ .Values.server.targetPort }}
       - path: /v1/trace
         backend:
-          serviceName: otel-collector
-          servicePort: 55680
+          serviceName: otel-collector-np
+          servicePort: 30011
       - path: /*
         backend:
           serviceName: {{ .Values.client.name }}
