@@ -54,7 +54,7 @@ steps:
         only:
           - master
     env:
-      name: cf-demo-k8s
+      name: todo-prod
       endpoints:
       - name: client
         url: http://35.223.88.219
@@ -63,7 +63,7 @@ steps:
       type: helm-release
       change: ${{CF_COMMIT_MESSAGE}}
       filters:
-      - cluster: cf-demo-k8s
+      - cluster: cf-demo
         releaseName: otel-todo-prod
     environment:
       - CHART_REF=helm
