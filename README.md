@@ -11,11 +11,7 @@ We start with a small bug that you'll use OpenTelemetry to discover, as well as 
 - Helm
 - Codefresh and Lightstep (for building, deploying, and viewing telemetry)
 
-For remote deployment, you'll need to define static IP addresses for your services (backend, frontend, and collector). 
-
-## Developing
-
-TBD
+For remote deployment, you'll need to define static IP addresses for your services (backend, frontend, and collector).  
 
 ## Add OpenTelemetry to the Server
 
@@ -265,3 +261,11 @@ In this case, we're registring an OTLP (OpenTeLemetry Protocol) receiver which w
 At this point, you're ready to run! If you're deploying to a managed Kubernetes cluster, like GKE, then make sure you've filled out the `values.yaml` file appropriately with static IP addresses for the client, server, and collector and set the `serviceType` to `LoadBalancer`. If deploying locally, you'll want to use `NodePort` for the service type. You'll also need to set the `lightstepKey` value with the project access token from your Lightstep project.
 
 You can run `helm install <name> ./helm` to deploy everything to Kubernetes locally. If you're using Codefresh, make sure you update the `codefresh.yml` file 
+
+## Further Work
+
+You may notice that there's a problem -- you aren't seeing any cat facts in the frontend! How can we find, and fix, this issue just using OpenTelemetry? I'll leave this to you, but here's some ideas on how to keep going -
+
+- Find the code path that gets cat facts in the server, and using OpenTelemetry's `@WithSpan` annotations, create a new span on the method that could throw an exception. Redeploy, and check Lightstep for the `/facts` route on your server service, and you should be able to find the error.
+- What other information might you want to know about your service performance? Try adding metrics, or more spans, to the existing instrumentation on the client or server side. Some interesting things to track might be the number of items added to the todo list, the amount of time it takes to make SQL queries, or really anything else you can think of.
+- Compare different ways of exporting and visualizing data from the collector! You can add Jaeger as an open source trace visualizer, or add Grafana to make dashboards out of your metrics.

@@ -53,6 +53,18 @@ steps:
       branch:
         only:
           - master
+    env:
+      name: cf-demo-k8s
+      endpoints:
+      - name: client
+        url: http://35.223.88.219
+      - name: server
+        url: http://104.198.253.217:9000
+      type: helm-release
+      change: ${{CF_COMMIT_MESSAGE}}
+      filters:
+      - cluster: cf-demo-k8s
+        releaseName: otel-todo-prod
     environment:
       - CHART_REF=helm
       - RELEASE_NAME=otel-todo-prod
