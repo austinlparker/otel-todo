@@ -78,3 +78,4 @@ steps:
       - VALUE_buildID='${{CF_BUILD_ID}}'
       - VALUE_image_pullSecret=codefresh-generated-docker.io-dockerhub-default
       - VALUE_lightstepKey=${{LS_KEY}}
+      - VALUE_server_replicas=5
