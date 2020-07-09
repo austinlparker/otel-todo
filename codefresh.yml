@@ -17,7 +17,9 @@ steps:
     type: build
     image_name: aparker/todo-server
     working_directory: ./server
-    tag: ${{CF_SHORT_REVISION}}
+    tags: 
+      - ${{CF_SHORT_REVISION}}
+      - latest
     dockerfile: Dockerfile  
     on_success:
       metadata:
@@ -34,7 +36,9 @@ steps:
     type: build
     image_name: aparker/todo-client
     working_directory: ./client
-    tag: ${{CF_SHORT_REVISION}}
+    tags: 
+      - ${{CF_SHORT_REVISION}}
+      - latest
     dockerfile: Dockerfile  
     on_success:
       metadata:
