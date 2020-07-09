@@ -12,6 +12,7 @@ server:
   serviceType: LoadBalancer
   targetPort: 9000
   ip: 104.198.253.217
+  replicas: 1
 collector:
   serviceType: LoadBalancer
   ip: 34.72.217.76

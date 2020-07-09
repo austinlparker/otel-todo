@@ -8,6 +8,7 @@ spec:
   selector:
     matchLabels:
       app: {{ .Values.server.name }}
+  replicas: {{ .Values.server.replicas }}
   template:
     metadata:
       labels:
