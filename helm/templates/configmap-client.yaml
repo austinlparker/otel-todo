@@ -10,7 +10,7 @@ data:
     var config = (() => {
       return {
         "VUE_APP_ENV_Server": "http://{{ .Values.server.ip }}:{{ .Values.server.targetPort }}/",
-        "VUE_APP_ENV_Collector": "http://{{ .Values.collector.ip }}:55680/v1/trace",
+        "VUE_APP_ENV_Collector": "http://{{ .Values.collector.ip }}:55681/v1/trace",
         "VUE_APP_ENV_ServerBase": "{{ .Values.server.ip }}:{{ .Values.server.targetPort }}"
       };
     })();
@@ -19,7 +19,7 @@ data:
     var config = (() => {
       return {
         "VUE_APP_ENV_Server": "http://localhost:{{ .Values.server.targetPort }}",
-        "VUE_APP_ENV_Collector": "http://localhost:30011/v1/trace",
+        "VUE_APP_ENV_Collector": "http://localhost:30002/v1/trace",
         "VUE_APP_ENV_ServerBase": "localhost:{{ .Values.server.targetPort }}"
       };
     })();

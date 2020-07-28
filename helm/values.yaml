@@ -4,21 +4,23 @@ image:
   pullPolicy: IfNotPresent
 client:
   name: todo-client
-  serviceType: LoadBalancer
-  targetPort: 80
+  serviceType: NodePort
+  targetPort: 30000
   ip: 35.223.88.219
 server:
   name: todo-server
-  serviceType: LoadBalancer
-  targetPort: 9000
+  serviceType: NodePort
+  targetPort: 30005
   ip: 104.198.253.217
   replicas: 1
 collector:
-  serviceType: LoadBalancer
+  serviceType: NodePort
   ip: 34.72.217.76
+  grpcPort: 55680
+  httpPort: 30002
 mysql-server:
   mysqlUser: todouser
   mysqlPassword: todopw
   mysqlDatabase: todos
 # if running locally, set this value here or on the helm command line
-lightstepKey: 
+lightstepKey: "DJjTF065uCUC61L2Q8XqEYSApP0MAdvS19A55i3zci658clbP9sL6pGOZue+HuiR/a0lVulT7PjgIc1Qd/U="
