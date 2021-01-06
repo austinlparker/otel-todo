@@ -17,7 +17,7 @@
     "@opentelemetry/plugin-xml-http-request": "^0.10.0",
     "@opentelemetry/tracing": "^0.10.0",
     "@opentelemetry/web": "^0.10.0",
-    "axios": "^0.19.2",
+    "axios": "^0.21.1",
     "core-js": "^3.6.5",
     "vue": "^2.6.11",
     "vuejs-logger": "^1.5.4"
