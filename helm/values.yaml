@@ -4,20 +4,20 @@ image:
   pullPolicy: IfNotPresent
 client:
   name: todo-client
-  serviceType: NodePort
-  targetPort: 30000
+  serviceType: LoadBalancer
+  targetPort: 80
   ip: 35.223.88.219
 server:
   name: todo-server
-  serviceType: NodePort
-  targetPort: 30005
+  serviceType: LoadBalancer
+  targetPort: 9000
   ip: 104.198.253.217
   replicas: 1
 collector:
-  serviceType: NodePort
+  serviceType: LoadBalancer
   ip: 34.72.217.76
-  grpcPort: 55680
-  httpPort: 30002
+  grpcPort: 4317
+  httpPort: 55681
 mysql-server:
   mysqlUser: todouser
   mysqlPassword: todopw

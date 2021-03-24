@@ -9,10 +9,10 @@ EXPOSE 9000
 
 RUN mkdir /app
 
-ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v0.6.1/opentelemetry-javaagent-0.6.1-all.jar /app/otel.jar
+ADD https://github.com/open-telemetry/opentelemetry-java-instrumentation/releases/download/v1.0.1/opentelemetry-javaagent-all.jar /app/otel.jar
 COPY --from=build /home/gradle/src/build/libs/*.jar /app/spring-boot-application.jar
 ENV OTEL_RESOURCE_ATTRIBUTES service.name=todo-server
-ENV OTEL_OTLP_ENDPOINT otel-collector:55680
+ENV OTEL_EXPORTER_OTLP_ENDPOINT otel-collector:4317
 
 ENTRYPOINT ["java",\
            "-XX:+UnlockExperimentalVMOptions",\
